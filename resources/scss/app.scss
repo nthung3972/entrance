@@ -3,7 +3,7 @@
 @import 'mixins';
 
 // Import components
-@import 'buttons';
+@import 'component/buttons';
 
 // Base styles
 body {
@@ -12,21 +12,12 @@ body {
     line-height: $line-height-base;
     margin: 0;
     padding: 0;
+    background-color: $background-color;
+    // background: url('/assets/img/user/home_bg.jpg') no-repeat center center fixed;
+    // background-size: cover;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 $spacing-md;
-}
-
-.header {
-    background-color: $primary-color;
-    color: white;
-    padding: $spacing-lg 0;
-    
-    h1 {
-        margin: 0;
-        @include flex-center;
-    }
+.main-content {
+    min-height: calc(100vh - 140px);
+    padding: 2rem 0;
 }
