@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Services;
 
+use App\Exceptions\ResourceNotFoundException;
+use App\Models\Prefecture;
 use App\Repositories\PrefectureRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,24 +13,15 @@ class PrefectureService
 {
     public function __construct(
         public PrefectureRepository $prefectureRepository,
-    ) {
-    }
+    ) {}
 
     public function getAllPrefectures(): Collection
     {
-        try {
-            return $this->prefectureRepository->getAllPrefectures();
-        } catch (Exception $e) {
-            throw new Exception('Error fetching prefectures: ' . $e->getMessage());
-        }
+        return $this->prefectureRepository->getAllPrefectures();
     }
 
-    public function getPrefectureByName(string $name)
+    public function getPrefectureByName(string $name): ?Prefecture
     {
-        try {
-            return $this->prefectureRepository->getPrefectureByName($name);
-        }  catch (Exception $e) {
-            throw new Exception('Error fetching prefecture by name: ' . $e->getMessage());
-        }
+        return $this->prefectureRepository->getPrefectureByName($name);
     }
 }

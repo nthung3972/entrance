@@ -1,24 +1,26 @@
-document.getElementById('searchForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const prefecture = document.getElementById('prefecture').value;
-    if (!prefecture) {
-        alert('都道府県を選択してください');
-        return;
-    }
-    
-    // Tạo URL với các tham số tìm kiếm
-    const formData = new FormData(this);
-    const params = new URLSearchParams();
-    
-    for (let [key, value] of formData.entries()) {
-        if (value && key !== 'prefecture') {
-            params.append(key, value);
+document.addEventListener('DOMContentLoaded', function () {
+    const select = document.getElementById('prefecture');
+    const form = document.getElementById('searchForm');
+
+    function updateFormAction() {
+        const selectedValue = select.value;
+        if (selectedValue) {
+            form.action = `/${selectedValue}/hotelist`;
+        } else {
+            form.action = `/empty/hotelist`; // hoặc dùng route('hotel.list', ...)
         }
     }
-    
-    const queryString = params.toString();
-    const url = `/${prefecture}/hotelist${queryString ? '?' + queryString : ''}`;
-    
-    window.location.href = url;
+
+    select?.addEventListener('change', updateFormAction);
+
+    form?.addEventListener('submit', function (e) {
+        const inputs = this.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            if (!input.value || input.value.trim() === '') {
+                input.removeAttribute('name');
+            }
+        });
+    });
+
+    updateFormAction();
 });

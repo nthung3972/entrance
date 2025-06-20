@@ -11,10 +11,10 @@
     <!-- Search Section -->
     <section class="search-section">
         <h1>日本全国のホテルを検索</h1>
-        <form class="search-form" id="searchForm" method="GET" action="#">
+        <form class="search-form" id="searchForm" method="GET" action="{{ route('hotel.list', ['prefecture' => 'empty']) }}">
             <div class="form-group">
                 <label for="prefecture">都道府県</label>
-                <select id="prefecture" name="prefecture">
+                <select id="prefecture" onchange="updateFormAction()">
                     <option value="">都道府県を選択してください</option>
                     @foreach ($listPrefectures as $prefecture)
                     <option
@@ -24,6 +24,12 @@
                     </option>
                     @endforeach
                 </select>
+                <!-- Display validation errors -->
+                @if ($errors->has('prefecture'))
+                <div class="error-message">
+                    {{ $errors->first('prefecture') }}
+                </div>
+                @endif
             </div>
 
             <button type="submit" class="search-btn">ホテルを検索</button>
@@ -32,8 +38,8 @@
 
     <!-- Hotel List Section -->
     <section class="hotel-list-section">
-        @if($hotels->isNotEmpty())
-        <h2 class="section-title">検索結果</h2>
+        @if(isset($hotels) && $hotels->isNotEmpty())
+        <h2 class="section-title">{{ $prefectureModel->prefecture_name }}の検索結果 ({{ $hotels->total() }}件)</h2>
         <div class="hotel-grid" id="hotelGrid">
             @foreach($hotels as $hotel)
             <div class="hotel-card">
