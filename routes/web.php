@@ -7,4 +7,5 @@ use App\Http\Controllers\User\HotelController;
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('{prefecture}/hotelist', [HotelController::class, 'hotelList'])->name('hotel.list');
+    Route::get('hotelist/{hotel_id}', [HotelController::class, 'hotelDetail'])->name('hotel.detail');
 });

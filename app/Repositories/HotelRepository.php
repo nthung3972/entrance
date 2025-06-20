@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class HotelRepository
 {
-    public function getAllHotels(int $id): LengthAwarePaginator
+    public function hotelList(int $id): LengthAwarePaginator
     {
         $builder = Hotel::query();
 
@@ -20,5 +20,10 @@ class HotelRepository
     public function hasHotelsByPrefectureId(int|string|null $id): bool
     {
         return Hotel::where('prefecture_id', $id)->exists();
+    }
+
+    public function getHotelById(int $hotel_id): ?Hotel
+    {
+        return Hotel::find($hotel_id);
     }
 }

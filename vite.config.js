@@ -8,7 +8,6 @@ export default defineConfig({
                 'resources/scss/app.scss',
                 'resources/js/app.js',
                 'resources/js/user/home.js',
-                'resources/js/user/hotel-list.js',
             ],
             refresh: true,
         }),

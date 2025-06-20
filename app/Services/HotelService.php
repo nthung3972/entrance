@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Hotel;
 use App\Repositories\HotelRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,12 +14,13 @@ class HotelService
         public HotelRepository $hotelRepository,
     ) {}
 
-    public function getAllHotels(int $id): LengthAwarePaginator
+    public function hotelList(int $id): LengthAwarePaginator
     {
-        try {
-            return $this->hotelRepository->getAllHotels($id);
-        } catch (Exception $e) {
-            throw new Exception('Error fetching hotels: ' . $e->getMessage());
-        }
+        return $this->hotelRepository->hotelList($id);
+    }
+
+    public function getHotelById(int $hotel_id): ?Hotel
+    {
+        return $this->hotelRepository->getHotelById($hotel_id);
     }
 }
