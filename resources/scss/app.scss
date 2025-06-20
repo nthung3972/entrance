@@ -1,0 +1,32 @@
+// Import variables and mixins
+@import 'variables';
+@import 'mixins';
+
+// Import components
+@import 'buttons';
+
+// Base styles
+body {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+}
+
+.header {
+    background-color: $primary-color;
+    color: white;
+    padding: $spacing-lg 0;
+    
+    h1 {
+        margin: 0;
+        @include flex-center;
+    }
+}
