@@ -39,7 +39,6 @@ class HotelController extends Controller
                 'currentPrefecture' => $prefecture,
                 'prefectureModel' => $prefectureModel
             ]);
-
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
@@ -50,6 +49,7 @@ class HotelController extends Controller
     public function hotelDetail(int $hotel_id): View
     {
         $hotel = null;
+        $prefecture = null;
         $errors = [];
         try {
             $hotel = $this->hotelService->getHotelById($hotel_id);
@@ -58,14 +58,21 @@ class HotelController extends Controller
                 throw new ValidationException('ホテルが見つかりません。');
             }
 
+            $prefecture = $this->prefectureService->getPrefectureById($hotel->prefecture_id);
+
+            if (!$prefecture) {
+                throw new ValidationException('指定された都道府県が見つかりません。');
+            }
+
         } catch (ValidationException $e) {
             $errors = ['error' => $e->getMessage()];
         } catch (\Exception $e) {
             $errors = ['error' => 'エラーが発生しました。もう一度お試しください。'];
         }
 
-        return view('user.hotel_detail', [
-            'hotel' => $hotel
+        return view('user.hotel-detail', [
+            'hotel' => $hotel,
+            'prefecture' => $prefecture,
         ])->withErrors($errors);
     }
 }

@@ -17,4 +17,9 @@ class PrefectureRepository {
     {
         return Prefecture::where('prefecture_name_alpha', $name)->first();
     }
+
+    public function getPrefectureById(int $id): Prefecture
+    {
+        return Prefecture::find($id);
+    }
 }

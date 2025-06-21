@@ -24,4 +24,9 @@ class PrefectureService
     {
         return $this->prefectureRepository->getPrefectureByName($name);
     }
+
+    public function getPrefectureById(int $id): ?Prefecture
+    {
+        return $this->prefectureRepository->getPrefectureById($id);
+    }
 }

@@ -17,6 +17,13 @@ class Hotel extends Model
      */
     protected $guarded = ['hotel_id'];
 
+
+    protected $fillable = [
+        'hotel_name',
+        'prefecture_id',
+        'file_path',
+    ];
+
     /**
      * @return BelongsTo
      */

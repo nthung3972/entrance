@@ -42,10 +42,10 @@
         <h2 class="section-title">{{ $prefectureModel->prefecture_name }}の検索結果 ({{ $hotels->total() }}件)</h2>
         <div class="hotel-grid" id="hotelGrid">
             @foreach($hotels as $hotel)
-            <div class="hotel-card">
+            <a href="{{ route('hotel.detail', ['hotel_id' => $hotel->hotel_id]) }}" class="hotel-card">
                 <img src="{{ asset('assets/img/' . $hotel->file_path) }}" alt="{{ $hotel->hotel_name }}" class="hotel-image">
                 <h3>{{ $hotel->hotel_name }}</h3>
-            </div>
+            </a>
             @endforeach
         </div>
 
