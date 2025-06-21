@@ -1,5 +1,10 @@
 import './bootstrap';
 import '../scss/app.scss';
 import '../scss/header.scss';
+import '../scss/admin-header.scss';
 import '../scss/footer.scss';
 import '../scss/user/home.scss';
+import '../scss/user/hotel-detail.scss';
+import '../scss/admin/dashboard.scss';
+import '../scss/admin/create-hotel.scss';
+import '../scss/modal.scss';

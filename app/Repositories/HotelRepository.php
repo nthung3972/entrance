@@ -26,4 +26,9 @@ class HotelRepository
     {
         return Hotel::find($hotel_id);
     }
+
+    public function createHotel(array $request): Hotel
+    {
+        return Hotel::create($request);
+    }
 }

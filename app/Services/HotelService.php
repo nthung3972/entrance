@@ -23,4 +23,10 @@ class HotelService
     {
         return $this->hotelRepository->getHotelById($hotel_id);
     }
+
+    public function createHotel(array $data, ?string $uploadFile): Hotel
+    {
+        $request = array_merge($data, array('file_path' =>$uploadFile));
+        return $this->hotelRepository->createHotel($request);
+    }
 }
