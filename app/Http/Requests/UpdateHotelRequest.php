@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CreateHotelRequest extends FormRequest
+class UpdateHotelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,11 +29,12 @@ class CreateHotelRequest extends FormRequest
             ],
             'hotel_name' => [
                 'required',
-                'unique:hotels,hotel_name',
+                Rule::unique('hotels', 'hotel_name')->ignore($this->hotel_id, 'hotel_id'),
             ],
-            'images' => [
-                'max:5120',
-                'mimes:jpeg,jpg,png',
+            'image' => [
+                'image',
+                'mimes:jpeg,png,jpg',
+                'max:5120', 
             ],
         ];
     }
@@ -49,10 +51,9 @@ class CreateHotelRequest extends FormRequest
             'prefecture_id.exists' => '選択された都道府県は存在しません。',
             'hotel_name.required' => 'ホテル名を入力してください。',
             'hotel_name.unique' => 'このホテル名はすでに使用されています。',
-            'images.max' => '画像のサイズは5MB以下でなければなりません。',
-            'images.mimes' => '画像はjpeg、jpg、またはpng形式でなければなりません。',
+            'image.image' => 'アップロードされたファイルは画像でなければなりません。',
+            'image.mimes' => '画像はjpeg、png、またはjpg形式でなければなりません。',
+            'image.max' => '画像のサイズは2MB以下でなければなりません。',
         ];
     }
-
-
 }

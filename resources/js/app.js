@@ -8,3 +8,6 @@ import '../scss/user/hotel-detail.scss';
 import '../scss/admin/dashboard.scss';
 import '../scss/admin/create-hotel.scss';
 import '../scss/modal.scss';
+import '../scss/admin/search-hotel.scss';
+import '../scss/admin/result-hotel.scss';
+import '../scss/admin/update-hotel.scss';

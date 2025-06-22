@@ -24,7 +24,6 @@
         @yield('content')
     </main>
 
-    @include('partials.footer')
     @include('components.confirm-modal')
 </body>
 

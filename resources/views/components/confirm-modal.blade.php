@@ -3,8 +3,8 @@
         <h3 id="modalTitle"></h3>
         <p id="modalMessage"></p>
         <div class="modal-actions">
-            <button id="confirmBtn" class="btn btn-success">Xác nhận</button>
-            <button id="cancelBtn" class="btn btn-secondary">Hủy</button>
+            <button id="confirmBtn" class="btn btn-success">確認する</button>
+            <button id="cancelBtn" class="btn btn-secondary">キャンセル</button>
         </div>
     </div>
 </div>

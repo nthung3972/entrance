@@ -29,4 +29,25 @@ class HotelService
         $request = array_merge($data, array('file_path' =>$uploadFile));
         return $this->hotelRepository->createHotel($request);
     }
+
+    public function searchHotels(array $data): LengthAwarePaginator
+    {
+        return $this->hotelRepository->searchHotels($data);
+    }
+
+    public function updateHotel(int $hotel_id, array $data, ?string $uploadFile): Hotel
+    {
+        if ($uploadFile) {
+            $request = array_merge($data, array('file_path' => $uploadFile));
+        } else {
+            $request = $data;
+        }
+        return $this->hotelRepository->updateHotel($hotel_id, $request);
+    }
+
+    public function deleteHotel(int $hotel_id): bool
+    {
+        return $this->hotelRepository->deleteHotel($hotel_id);
+    }
 }
+

@@ -31,4 +31,33 @@ class HotelRepository
     {
         return Hotel::create($request);
     }
+
+    public function searchHotels(array $data): LengthAwarePaginator
+    {
+        $builder = Hotel::with('prefecture');
+
+        if (!empty($data['hotel_name'])) {
+            $builder->where('hotel_name', 'like', '%' . $data['hotel_name'] . '%');
+        }
+
+        if (!empty($data['prefecture_id'])) {
+            $builder->where('prefecture_id', $data['prefecture_id']);
+        }
+
+        return $builder->paginate(config('constant.paginate'));
+    }
+
+    public function updateHotel(int $hotel_id, array $request): Hotel
+    {
+        $hotel = Hotel::findOrFail($hotel_id);
+        $hotel->update($request);
+        
+        return $hotel;
+    }
+
+    public function deleteHotel(int $hotel_id): bool
+    {
+        $hotel = Hotel::findOrFail($hotel_id);
+        return $hotel->delete();
+    }
 }
