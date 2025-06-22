@@ -1,87 +1,70 @@
-.main-grid {
+.jp-home {
+  max-width: 1400px;     
+  margin: 0 auto;          
+  padding: 40px 20px;       
+  background: #f8f7f3;
+  font-family: 'Noto Sans JP', sans-serif;
+
+  .jp-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
 
-.card {
-    background: gray;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 30px;
+  .jp-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.05) 100%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
 
     &:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        border-color: rgba(255, 255, 255, 0.3);
-
-        &::before {
-            opacity: 1;
-        }
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
 
-    &-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 32px;
-        color: white;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    .jp-card-icon {
+      font-size: 36px;
+      color: #e63946;
+      margin-bottom: 16px;
     }
 
-    &-content {
+    .jp-card-content {
+      h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #1a1a1a;
+      }
+
+      p {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .jp-card {
+      padding: 24px 16px;
+
+      .jp-card-content {
         h3 {
-            color: white;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 10px;
+          font-size: 18px;
         }
 
         p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            line-height: 1.6;
+          font-size: 13px;
         }
+      }
     }
-}
-
-.card-search .card-icon {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.card-create .card-icon {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-}
-
-.card-result .card-icon {
-    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-}
-
-.card-edit .card-icon {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-    color: #333;
+  }
 }

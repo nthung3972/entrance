@@ -1,19 +1,19 @@
-<header class="header">
+<header class="admin-header">
     <div class="header-content">
-        <div class="logo-section">
-            <div class="logo">
-                <i class="fas fa-hotel"></i>
+        <a href="{{ route('admin.index') }}" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-torii-gate"></i>
             </div>
-            <div class="header-title">
-                <h1>Hotel Management System</h1>
-                <p>Quản lý khách sạn chuyên nghiệp</p>
+            <div class="logo-text">
+                <h1>THK Holdings Vietnam</h1>
+                <p>Hotel Management System</p>
             </div>
-        </div>
+        </a>
         <div class="user-info">
             <div class="user-avatar">A</div>
             <div class="user-details">
                 <h3>Admin User</h3>
-                <span>Quản trị viên</span>
+                <span>管理者</span>
             </div>
         </div>
     </div>

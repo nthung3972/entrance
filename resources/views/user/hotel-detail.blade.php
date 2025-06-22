@@ -9,14 +9,29 @@
 @section('content')
 <div class="container">
     <!-- Hotel Header -->
-     @if(isset($hotel))
+    @if(isset($hotel))
     <section class="hotel-header">
+        @if(session('create-success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('create-success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session('update-success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('update-success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="hotel-title">
             <div>
                 <h1>{{ $hotel->hotel_name }}</h1>
                 <div class="hotel-location">
                     <span class="location-icon">📍</span>
-                    {{ $prefecture->prefecture_name }} ({{ $prefecture->prefecture_name_alpha }}) 
+                    {{ $prefecture->prefecture_name }} ({{ $prefecture->prefecture_name_alpha }})
                 </div>
             </div>
             <div class="hotel-rating">

@@ -1,24 +1,26 @@
 @extends('layouts.admin-app')
 
-@section('title', 'Create Hotel')
+@section('title', 'Update Hotel')
 
 @section('custom_css')
-@vite(['resources/scss/admin/create-hotel.scss', 'resources/js/admin/hotel-create.js'])
+@vite(['resources/scss/admin/update-hotel.scss', 'resources/js/admin/hotel-update.js'])
 @endsection
 
 @section('content')
 <div class="container">
-    <form id="createHotelForm" class="form-card" action="{{ route('hotel.create') }}" method="POST" enctype="multipart/form-data">
+    <!-- Hotel Edit Form -->
+    <form id="updateHotelForm" class="form-card" action="/admin/hotel/{{ $hotel->hotel_id }}/update" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <div class="form-header">
-            <h2><i class="fas fa-hotel me-2"></i>ホテル新規作成</h2>
+            <h2><i class="fas fa-hotel" style="margin-right: 0.5rem;"></i>ホテル情報の編集</h2>
         </div>
 
         @if($errors->any())
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <i class="fas fa-times-circle me-2"></i>
-            ホテルの作成中にエラーが発生しました。もう一度お試しください。
+            ホテルの更新中にエラーが発生しました。もう一度お試しください。
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
@@ -27,12 +29,17 @@
             <!-- Basic Information Section -->
             <div class="form-section">
                 <h3 class="section-title">基本情報</h3>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label required" for="hotel_name">ホテル名（日本語）</label>
-                        <input type="text" id="hotel_name" name="hotel_name" class="form-control"
-                            value="{{ old('hotel_name') }}" placeholder="例: 桜ホテル東京">
+                        <input type="text"
+                            id="hotel_name"
+                            name="hotel_name"
+                            class="form-control japanese-text"
+                            value="{{ old('hotel_name', $hotel->hotel_name ?? '') }}"
+                            placeholder="例: 桜ホテル東京"
+                            required>
+
                         @error('hotel_name')
                         <span class="error-field">{{ $message }}</span><br>
                         @enderror
@@ -41,11 +48,12 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label required" for="prefecture_id">都道府県</label>
-                        <select id="prefecture_id" name="prefecture_id" class="form-control">
+                        <label class="form-label required" for="prefecture">都道府県</label>
+                        <select id="prefecture_id" name="prefecture_id" class="form-control" required>
                             <option value="">選択してください</option>
-                            @foreach ($listPrefectures as $label)
-                            <option value="{{ $label->prefecture_id }}" {{ old('prefecture_id') == $label->prefecture_id ? 'selected' : '' }}>
+                            @foreach($listPrefectures as $label)
+                            <option value="{{ $label->prefecture_id }}"
+                                {{ old('prefecture_id', $hotel->prefecture_id ?? '') == $label->prefecture_id ? 'selected' : '' }}>
                                 {{ $label->prefecture_name }} ({{ $label->prefecture_name_alpha }})
                             </option>
                             @endforeach
@@ -62,13 +70,21 @@
                 <h3 class="section-title">ホテル画像</h3>
 
                 <div class="form-group">
-                    <label class="form-label" for="image">画像アップロード</label>
+                    <label class="form-label" for="images">画像アップロード</label>
+
                     <div class="image-upload-wrapper">
                         <div id="previewContainer">
+                            @if(isset($hotel->file_path))
+                            <div class="image-preview">
+                                <img src="{{ asset('assets/img/' . $hotel->file_path) }}" alt="Hotel Image" id="previewImage">
+                                <button type="button" class="remove-image" onclick="removeImage()">×</button>
+                            </div>
+                            @else
                             <div class="image-placeholder" onclick="triggerFileInput()">
                                 <i class="fas fa-upload"></i>
-                                <p>写真を選択</p>
+                                <p>Chọn ảnh để tải lên</p>
                             </div>
+                            @endif
                         </div>
 
                         <input type="file" name="image" id="imageInput" accept="image/*" onchange="previewSelectedImage(event)" hidden>
@@ -85,8 +101,8 @@
             <a href="{{ url()->previous() }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> キャンセル
             </a>
-            <button type="submit" class="btn btn-success" onclick="handleConfirmCreate(event)">
-                <i class="fas fa-save"></i> ホテルを作成
+            <button type="submit" class="btn btn-primary" onclick="handleConfirmUpdate(event)">
+                <i class="fas fa-save"></i> 変更を保存
             </button>
         </div>
     </form>

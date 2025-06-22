@@ -7,27 +7,27 @@
 @endsection
 
 @section('content')
-<!-- Main Cards Grid -->
-<div class="main-grid">
-    <div class="card card-search" onclick="location.href='https://localhost/admin/hotel/search'">
-        <div class="card-icon">
-            <i class="fas fa-search"></i>
-        </div>
-        <div class="card-content">
-            <h3>Tìm kiếm khách sạn</h3>
-            <p>Tìm kiếm và lọc danh sách khách sạn theo nhiều tiêu chí khác nhau</p>
-        </div>
-    </div>
+<div class="jp-home">
+    <div class="jp-grid">
+        <a href="{{ route('hotel.search') }}" class="jp-card">
+            <div class="jp-card-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="jp-card-content">
+                <h3>ホテルを検索</h3>
+                <p>さまざまな条件でホテルを検索・フィルタできます。</p>
+            </div>
+        </a>
 
-    <a href="{{ route('hotel.form.create') }}" class="card card-create">
-        <div class="card-icon">
-            <i class="fas fa-plus"></i>
-        </div>
-        <div class="card-content">
-            <h3>Tạo mới khách sạn</h3>
-            <p>Thêm thông tin khách sạn mới vào hệ thống quản lý</p>
-        </div>
-    </a>
-    </form>
+        <a href="{{ route('hotel.form.create') }}" class="jp-card">
+            <div class="jp-card-icon">
+                <i class="fas fa-plus"></i>
+            </div>
+            <div class="jp-card-content">
+                <h3>ホテルを登録</h3>
+                <p>新しいホテル情報をシステムに追加します。</p>
+            </div>
+        </a>
+    </div>
 </div>
 @endsection
