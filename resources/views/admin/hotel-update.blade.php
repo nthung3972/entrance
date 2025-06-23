@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="update-container">
     <!-- Hotel Edit Form -->
     <form id="updateHotelForm" class="form-card" action="/admin/hotel/{{ $hotel->hotel_id }}/update" method="POST" enctype="multipart/form-data">
         @csrf

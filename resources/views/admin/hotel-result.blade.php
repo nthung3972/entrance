@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="result-container">
     <!-- Search Summary -->
     <div class="search-summary">
         <div class="search-info">

@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="create-container">
     <form id="createHotelForm" class="form-card" action="{{ route('hotel.create') }}" method="POST" enctype="multipart/form-data">
         @csrf
 

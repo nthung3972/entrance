@@ -7,31 +7,42 @@
 
 // Base styles
 body {
-    font-family: $font-family-base;
-    font-size: $font-size-base;
-    line-height: $line-height-base;
-    margin: 0;
-    padding: 0;
-    background-color: $background-color;
-    // background: url('/assets/img/user/home_bg.jpg') no-repeat center center fixed;
-    // background-size: cover;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  margin: 0;
+  padding: 0;
+  background-color: $background-color;
+  // background: url('/assets/img/user/home_bg.jpg') no-repeat center center fixed;
+  // background-size: cover;
 }
 
 .main-content {
-    min-height: calc(100vh - 500px);
-    padding: 1rem 0;
+  min-height: calc(100vh - 500px);
+  padding: 1rem 0;
 }
 
 a {
-    color: $text-dark;
-    text-decoration: none;
-    font-weight: 500;
+  color: $text-dark;
+  text-decoration: none;
+  font-weight: 500;
 
-    &:hover {
-        color: $primary-color;
-    }
+  &:hover {
+    color: $primary-color;
+  }
 
-    &:active {
-        color: $primary-color;
-    }
+  &:active {
+    color: $primary-color;
+  }
+}
+
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
 }

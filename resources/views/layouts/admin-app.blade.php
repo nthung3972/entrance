@@ -18,13 +18,17 @@
 </head>
 
 <body>
-    @include('partials.admin-header')
+    <div class="admin-container">
+        @include('partials.admin-sidebar')
 
-    <main class="main-content">
-        @yield('content')
-    </main>
-
-    @include('components.confirm-modal')
+        <div class="admin-main-content">
+            @include('partials.admin-header')
+            <div class="main-body">
+                @yield('content')
+            </div>
+            @include('components.confirm-modal')
+        </div>
+    </div>
 </body>
 
 </html>
