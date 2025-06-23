@@ -1,20 +1,16 @@
-<header class="admin-header">
-    <div class="header-content">
-        <a href="{{ route('admin.index') }}" class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-torii-gate"></i>
-            </div>
-            <div class="logo-text">
-                <h1>THK Holdings Vietnam</h1>
-                <p>Hotel Management System</p>
-            </div>
-        </a>
-        <div class="user-info">
-            <div class="user-avatar">A</div>
-            <div class="user-details">
-                <h3>Admin User</h3>
-                <span>管理者</span>
-            </div>
+<div class="main-header">
+    <div class="header-left">
+        <div class="header-icon">
+            <i class="fas fa-torii-gate"></i>
+        </div>
+        <span class="header-title">こんにちは, 管理者さん</span>
+    </div>
+
+    <div class="user-info">
+        <img src="{{ asset('assets/img/user/home_bg.jpg') }}" alt="Avatar" class="avatar">
+        <div class="user-meta">
+            <div class="username">管理者ユーザー</div>
+            <div class="role">管理者</div>
         </div>
     </div>
-</header>
+</div>

@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="search-container">
     <div class="search-card">
         <div class="search-title">
             <i class="fas fa-search"></i>

@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/admin/search-hotel.js',
                 'resources/js/admin/hotel-update.js',
                 'resources/js/admin/hotel-delete.js',
+                'resources/js/admin/booking-search.js',
             ],
             refresh: true,
         }),

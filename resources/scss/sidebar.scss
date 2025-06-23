@@ -1,0 +1,126 @@
+.sidebar {
+  width: 260px;
+  background: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+
+  .sidebar-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+
+    .sidebar-brand {
+      display: flex;
+      flex-direction: column;
+      margin-right: auto;
+
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #e74c3c;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .subtitle {
+        font-size: 0.75rem;
+        color: #e74c3c;
+        font-weight: 400;
+        margin-top: 4px;
+      }
+    }
+
+    .sidebar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+
+  nav {
+    padding: 16px 0;
+
+    .nav-section {
+      margin-bottom: 24px;
+
+      &-title {
+        padding: 8px 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #95a5a6;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+
+      ul {
+        list-style: none;
+
+        li {
+          margin-bottom: 2px;
+
+          a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 400;
+
+            &:hover {
+              background-color: #f8f9fa;
+              color: #2c3e50;
+            }
+
+            &.active {
+              background-color: #e3f2fd;
+              color: #1976d2;
+              border-right: 3px solid #1976d2;
+              font-weight: 500;
+            }
+
+            .nav-icon {
+              font-size: 1.1rem;
+              width: 20px;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+
+      .sidebar-toggle {
+        display: block;
+      }
+    }
+
+    nav {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+
+      &.show {
+        display: flex;
+      }
+    }
+  }
+}

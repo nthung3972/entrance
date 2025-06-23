@@ -43,8 +43,13 @@
         <div class="hotel-grid" id="hotelGrid">
             @foreach($hotels as $hotel)
             <a href="{{ route('hotel.detail', ['hotel_id' => $hotel->hotel_id]) }}" class="hotel-card">
+                @if($hotel->file_path)
                 <img src="{{ asset('assets/img/' . $hotel->file_path) }}" alt="{{ $hotel->hotel_name }}" class="hotel-image">
                 <h3>{{ $hotel->hotel_name }}</h3>
+                @else
+                <img src="{{ asset('assets/img/hotel/hotel-default.png') }}" alt="Default Hotel Image" class="hotel-image">
+                <h3>{{ $hotel->hotel_name }}</h3>
+                @endif
             </a>
             @endforeach
         </div>

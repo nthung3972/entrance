@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Services\HotelService;
 use App\Services\PrefectureService;
@@ -20,6 +21,36 @@ class AdminHotelController extends Controller
         public UploadFileService $uploadFileService
     ) {}
 
+    public function adminHotelDetail(int $hotel_id): View
+    {
+        $hotel = null;
+        $prefecture = null;
+        $errors = [];
+        try {
+            $hotel = $this->hotelService->getHotelById($hotel_id);
+
+            if (!$hotel) {
+                throw new ValidationException('ホテルが見つかりません。');
+            }
+
+            $prefecture = $this->prefectureService->getPrefectureById($hotel->prefecture_id);
+
+            if (!$prefecture) {
+                throw new ValidationException('指定された都道府県が見つかりません。');
+            }
+
+        } catch (ValidationException $e) {
+            $errors = ['error' => $e->getMessage()];
+        } catch (\Exception $e) {
+            $errors = ['error' => 'エラーが発生しました。もう一度お試しください。'];
+        }
+
+        return view('admin.hotel-detail', [
+            'hotel' => $hotel,
+            'prefecture' => $prefecture,
+        ])->withErrors($errors);
+    }
+
     public function formCreate(): View
     {
         $listPrefectures = $this->prefectureService->getAllPrefectures();
@@ -31,8 +62,8 @@ class AdminHotelController extends Controller
     {
         $uploadFile = null;
         try {
-            if ($request->file('images')) {
-                $uploadFile = $this->uploadFileService->uploadFile($request->file('images'));
+            if ($request->file('image')) {
+                $uploadFile = $this->uploadFileService->uploadFile($request->file('image'));
             }
 
             $createHotel = $this->hotelService->createHotel($request->only('prefecture_id', 'hotel_name'), $uploadFile);
@@ -43,7 +74,7 @@ class AdminHotelController extends Controller
                     ->withErrors(['error' => 'ホテルの作成中にエラーが発生しました。もう一度お試しください。']);
             }
 
-            return redirect()->route('hotel.detail', ['hotel_id' => $createHotel->hotel_id])
+            return redirect()->route('admin.hotel.detail', ['hotel_id' => $createHotel->hotel_id])
                 ->with('create-success', 'ホテルが正常に作成されました。');
         } catch (\Exception $e) {
             return redirect()->back()
@@ -122,7 +153,7 @@ class AdminHotelController extends Controller
                     ->withErrors(['error' => 'ホテルの更新中にエラーが発生しました。もう一度お試しください。']);
             }
 
-            return redirect()->route('hotel.detail', ['hotel_id' => $updateHotel->hotel_id])
+            return redirect()->route('admin.hotel.detail', ['hotel_id' => $updateHotel->hotel_id])
                 ->with('update-success', 'ホテルが正常に更新されました。');
 
         } catch (\Exception $e) {
@@ -142,7 +173,9 @@ class AdminHotelController extends Controller
 
             $deleteHotel = $this->hotelService->deleteHotel($hotel_id);
             if ($deleteHotel) {
-                $this->uploadFileService->deleteFile($hotel->file_path);
+                if ($hotel->file_path) {
+                    $this->uploadFileService->deleteFile($hotel->file_path);
+                }
                 return redirect()->back()->with('delete-success', 'ホテルが正常に削除されました。');
             }
 

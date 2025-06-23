@@ -9,9 +9,19 @@
 @section('content')
 <div class="jp-home">
     <div class="jp-grid">
+        <a href="{{ route('hotel.form.create') }}" class="jp-card">
+            <div class="jp-card-icon">
+                <i class="fas fa-plus-square"></i>
+            </div>
+            <div class="jp-card-content">
+                <h3>ホテルを登録</h3>
+                <p>新しいホテル情報をシステムに追加します。</p>
+            </div>
+        </a>
+
         <a href="{{ route('hotel.search') }}" class="jp-card">
             <div class="jp-card-icon">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-hotel"></i>
             </div>
             <div class="jp-card-content">
                 <h3>ホテルを検索</h3>
@@ -19,9 +29,9 @@
             </div>
         </a>
 
-        <a href="{{ route('hotel.form.create') }}" class="jp-card">
+        <a href="{{ route('booking.search') }}" class="jp-card">
             <div class="jp-card-icon">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-calendar-alt"></i>
             </div>
             <div class="jp-card-content">
                 <h3>ホテルを登録</h3>

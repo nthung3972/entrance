@@ -5,6 +5,7 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\HotelController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminHotelController;
+use App\Http\Controllers\Admin\BookingController;
 use Illuminate\Routing\Router;
 
 Route::group(['prefix' => '/'], function () {
@@ -13,7 +14,9 @@ Route::group(['prefix' => '/'], function () {
     Route::get('hotel/{hotel_id}', [HotelController::class, 'hotelDetail'])->name('hotel.detail');
 
     Route::group(['prefix' => 'admin'], function () {
+        //Hotel
         Route::get('/', [DashboardController::class, 'index'])->name('admin.index');
+        Route::get('hotel/detail/{hotel_id}', [AdminHotelController::class, 'adminHotelDetail'])->name('admin.hotel.detail');
         Route::get('hotel/create', [AdminHotelController::class, 'formCreate'])->name('hotel.form.create');
         Route::post('hotel/create', [AdminHotelController::class, 'create'])->name('hotel.create');
         Route::get('hotel/search', [AdminHotelController::class, 'search'])->name('hotel.search');
@@ -22,5 +25,8 @@ Route::group(['prefix' => '/'], function () {
         Route::get('hotel/{hotel_id}/update', [AdminHotelController::class, 'formEdit'])->name('hotel.form.edit');
         Route::put('hotel/{hotel_id}/update', [AdminHotelController::class, 'update'])->name('hotel.update');
         Route::delete('hotel/{hotel_id}/delete', [AdminHotelController::class, 'delete'])->name('hotel.delete');
+
+        //Booking
+        Route::get('booking/search', [BookingController::class, 'search'])->name('booking.search');
     });
 });
