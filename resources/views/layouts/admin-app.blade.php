@@ -29,6 +29,11 @@
             @include('components.confirm-modal')
         </div>
     </div>
-</body>
 
+    <div id="global-loading" style="display: none;">
+        <div class="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+    </div>
+</body>
 </html>

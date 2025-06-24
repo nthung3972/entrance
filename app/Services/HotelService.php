@@ -50,4 +50,3 @@ class HotelService
         return $this->hotelRepository->deleteHotel($hotel_id);
     }
 }
-

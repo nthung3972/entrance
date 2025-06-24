@@ -38,8 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
             title: "ホテルの作成を確認",
             message: "新しいホテルを作成してもよろしいですか？",
             onConfirm: () => {
-                console.log("Gửi form");
-                document.getElementById('createHotelForm').submit();
+                showGlobalLoading();
+                setTimeout(() => {
+                    document.getElementById('createHotelForm').submit();
+                }, 300);
             }
         });
     }

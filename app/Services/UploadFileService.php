@@ -29,13 +29,13 @@ class UploadFileService
     public function deleteFile(string $fileName): void
     {
         try {
-            $filePath = public_path('assets/img/hotel/' . $fileName);
+            $filePath = public_path('assets/img/' . $fileName);
 
             if (file_exists($filePath)) {
                 unlink($filePath);
             }
         } catch (Exception $e) {
-            throw new Exception("Không thể xóa file: " . $e->getMessage());
+            throw new Exception("Delete file error: " . $e->getMessage());
         }
     }
 }

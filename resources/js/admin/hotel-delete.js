@@ -3,9 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         showConfirmModal({
             title: "削除の確認",
-            message: "このホテルを本当に削除しますか？",
+            message: "ホテルには予約がある可能性があります。削除してもよろしいですか?",
             onConfirm: () => {
-                document.getElementById('deleteHotelForm').submit();
+                showGlobalLoading(); 
+                setTimeout(() => {
+                    document.getElementById('deleteHotelForm').submit();
+                }, 300);
             }
         });
     }
