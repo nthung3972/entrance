@@ -25,6 +25,11 @@
     </main>
 
     @include('partials.footer')
-</body>
 
+    <div id="global-loading" style="display: none;">
+        <div class="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+    </div>
+</body>
 </html>

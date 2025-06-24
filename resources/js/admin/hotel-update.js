@@ -1,15 +1,15 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    window.triggerFileInput = function() {
+document.addEventListener('DOMContentLoaded', function () {
+
+    window.triggerFileInput = function () {
         document.getElementById('imageInput').click();
     }
 
-    window.previewSelectedImage = function(event) {
+    window.previewSelectedImage = function (event) {
         const file = event.target.files[0];
         if (!file) return;
 
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             const previewContainer = document.getElementById('previewContainer');
             previewContainer.innerHTML = `
                 <div class="image-preview">
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         reader.readAsDataURL(file);
     }
 
-    window.removeImage = function() {
+    window.removeImage = function () {
         const previewContainer = document.getElementById('previewContainer');
         previewContainer.innerHTML = `
             <div class="image-placeholder" onclick="triggerFileInput()">
@@ -29,16 +29,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p>Chọn ảnh để tải lên</p>
             </div>
         `;
-        document.getElementById('imageInput').value = ""; 
+        document.getElementById('imageInput').value = "";
     }
 
-    window.handleConfirmUpdate = function(event) {
-        event.preventDefault(); 
+    window.handleConfirmUpdate = function (event) {
+        event.preventDefault();
         showConfirmModal({
             title: "ホテルの更新を確認する",
             message: "新しいホテルを更新してもよろしいですか?",
             onConfirm: () => {
-                document.getElementById('updateHotelForm').submit();
+                showGlobalLoading();
+                setTimeout(() => {
+                    document.getElementById('updateHotelForm').submit();
+                }, 300);
             }
         });
     }

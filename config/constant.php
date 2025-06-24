@@ -1,4 +1,4 @@
 <?php
 return [
-    'paginate' => env('PAGINATE', 6),
+    'paginate' => env('PAGINATE', 10),
 ];

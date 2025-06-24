@@ -80,7 +80,6 @@
             </div>
         </div>
 
-        <!-- Form Actions -->
         <div class="form-actions">
             <a href="{{ url()->previous() }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> キャンセル

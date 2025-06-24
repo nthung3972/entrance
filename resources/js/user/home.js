@@ -7,19 +7,30 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedValue) {
             form.action = `/${selectedValue}/hotelist`;
         } else {
-            form.action = `/empty/hotelist`; // hoặc dùng route('hotel.list', ...)
+            form.action = `/empty/hotelist`;
         }
     }
 
     select?.addEventListener('change', updateFormAction);
 
     form?.addEventListener('submit', function (e) {
-        const inputs = this.querySelectorAll('input, select');
+        e.preventDefault();
+        const inputs = this.querySelectorAll('select');
+        const params = new URLSearchParams();
+
         inputs.forEach(input => {
-            if (!input.value || input.value.trim() === '') {
-                input.removeAttribute('name');
+            const name = input.name;
+            const value = input.value?.trim();
+            if (name && value) {
+                params.append(name, value);
             }
         });
+
+        const baseAction = form.action;
+        const queryString = params.toString();
+        const newUrl = queryString ? `${baseAction}?${queryString}` : baseAction;
+
+        window.location.href = newUrl;
     });
 
     updateFormAction();

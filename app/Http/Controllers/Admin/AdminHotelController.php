@@ -7,18 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Services\HotelService;
 use App\Services\PrefectureService;
 use App\Services\UploadFileService;
+use App\Services\BookingService;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\CreateHotelRequest;
 use App\Http\Requests\SearchHotelsRequest;
 use App\Http\Requests\UpdateHotelRequest;
+use Illuminate\Support\Facades\DB;
 
 class AdminHotelController extends Controller
 {
     public function __construct(
         public HotelService $hotelService,
         public PrefectureService $prefectureService,
-        public UploadFileService $uploadFileService
+        public UploadFileService $uploadFileService,
+        public BookingService $bookingService
     ) {}
 
     public function adminHotelDetail(int $hotel_id): View
@@ -38,7 +41,6 @@ class AdminHotelController extends Controller
             if (!$prefecture) {
                 throw new ValidationException('指定された都道府県が見つかりません。');
             }
-
         } catch (ValidationException $e) {
             $errors = ['error' => $e->getMessage()];
         } catch (\Exception $e) {
@@ -155,7 +157,6 @@ class AdminHotelController extends Controller
 
             return redirect()->route('admin.hotel.detail', ['hotel_id' => $updateHotel->hotel_id])
                 ->with('update-success', 'ホテルが正常に更新されました。');
-
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
@@ -165,23 +166,27 @@ class AdminHotelController extends Controller
 
     public function delete($hotel_id)
     {
+        DB::beginTransaction();
         try {
             $hotel = $this->hotelService->getHotelById($hotel_id);
             if (!$hotel) {
                 return redirect()->back()->withErrors(['error' => '指定されたホテルが見つかりません。']);
             }
 
-            $deleteHotel = $this->hotelService->deleteHotel($hotel_id);
-            if ($deleteHotel) {
-                if ($hotel->file_path) {
-                    $this->uploadFileService->deleteFile($hotel->file_path);
-                }
-                return redirect()->back()->with('delete-success', 'ホテルが正常に削除されました。');
+            if ($this->bookingService->existsByHotelId($hotel_id)) {
+                $this->bookingService->deleteByHotelId($hotel_id);
             }
 
-            return redirect()->back()->withErrors(['delete-error' => 'ホテルの削除中にエラーが発生しました。もう一度お試しください。']);
+            $this->hotelService->deleteHotel($hotel_id);
 
+            if ($hotel->file_path) {
+                $this->uploadFileService->deleteFile($hotel->file_path);
+            }
+
+            DB::commit(); 
+            return redirect()->back()->with('delete-success', 'ホテルが正常に削除されました。');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['error' => 'ホテルの削除中にエラーが発生しました。もう一度お試しください。']);

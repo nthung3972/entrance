@@ -50,6 +50,14 @@
     </div>
     @endif
 
+    @if ($errors->has('booking-exit'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-times-circle me-1"></i>
+        {{ $errors->first('booking-exit') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
     <!-- Results Section -->
     <div class="results-section">
         <div class="results-header">
